@@ -21,3 +21,8 @@ variable "iot_hub_name" {
 variable "location" {
   default = "West Europe"
 }
+
+variable "tags" {
+  description = "(Required) Tags to be applied to the all services to be created"
+  default = { Project = "IoTTelemetry" }
+}
