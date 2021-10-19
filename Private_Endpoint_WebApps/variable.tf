@@ -36,8 +36,6 @@ variable "sta_ntw_rule_bypass" {
   default = [ "AzureServices" ]
 }
 
-
-
 # Azure App Service Plan
 variable "app_service_plan_name" {
   description = "(Required) App Service Plan name"

@@ -27,6 +27,8 @@ resource "azurerm_app_service" "app_frontend" {
     "WEBSITE_DNS_SERVER": "168.63.129.16",
     "WEBSITE_VNET_ROUTE_ALL": "1"
   }
+
+  tags                = var.tags
   
 }
 
@@ -39,6 +41,8 @@ resource "azurerm_app_service" "app_backend" {
   site_config {
     dotnet_framework_version = "v5.0"
   }
+
+  tags                = var.tags
 
 }
 
