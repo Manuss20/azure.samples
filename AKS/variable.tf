@@ -211,7 +211,7 @@ variable "network_policy" {
 variable "network_load_balancer_sku" {
   type        = string
   description = "(Optional) Specifies the SKU of the Load Balancer used for this Kubernetes Cluster. Possible values are basic and standard. Defaults to basic."
-  default     = "basic"
+  default     = "standard"
 }
 
 variable "rbac_enabled" {
