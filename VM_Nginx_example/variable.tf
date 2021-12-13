@@ -45,6 +45,11 @@ variable "address_space_subnet_2" {
   default = ["10.254.2.0/24"]
 }
 
+variable "dns_servers" {
+  description = "(Optional) DNS Servers object."
+  default     = null
+}
+
 # Public IP
 variable "name-publicip" {
   description = "(Required) Name of Public IP"
