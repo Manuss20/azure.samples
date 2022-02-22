@@ -127,7 +127,7 @@ variable "name" {
 variable "kubernetes_version" {
   type        = string
   description = "(Required) Version of Kubernetes specified when creating the AKS managed cluster. If not specified, the latest recommended version will be used at provisioning time (but won't auto-upgrade). NOTE: Upgrading your cluster may take up to 10 minutes per node."
-  default     = "1.20.7"
+  default     = "1.22.6"
 }
 
 variable "dns_prefix" {
@@ -187,7 +187,7 @@ variable "auto_scaling_max_count" {
 variable "linux_admin_username" {
   type        = string
   description = "(Optional) The Admin Username for the Cluster. Changing this forces a new resource to be created. Defaults to cloudcommons"
-  default     = "celz"
+  default     = "msanchez"
 }
 
 variable "linux_ssh_key" {
