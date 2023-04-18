@@ -1,11 +1,13 @@
 # Create an Azure Kubernetes Cluster
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                            = var.name
-  location                        = var.location
-  resource_group_name             = azurerm_resource_group.rg.name
-  dns_prefix                      = try(var.dns_prefix, null) != null ? var.dns_prefix : var.name
-  kubernetes_version              = var.kubernetes_version
-  api_server_authorized_ip_ranges = var.api_server_authorized_ip_ranges
+  name                              = var.name
+  location                          = var.location
+  resource_group_name               = azurerm_resource_group.rg.name
+  dns_prefix                        = try(var.dns_prefix, null) != null ? var.dns_prefix : var.name
+  kubernetes_version                = var.kubernetes_version
+  api_server_authorized_ip_ranges   = var.api_server_authorized_ip_ranges
+  role_based_access_control_enabled = var.rbac_enabled
+  http_application_routing_enabled  = var.http_application_routing_enabled
 
   default_node_pool {
     name                  = var.node_pool_name
@@ -36,35 +38,34 @@ resource "azurerm_kubernetes_cluster" "aks" {
     load_balancer_sku = var.network_load_balancer_sku
   }
 
-  role_based_access_control {
-    enabled = var.rbac_enabled
-    dynamic "azure_active_directory" {
-      for_each = var.rbac_aad == true ? [1] : []
-      content {
-        client_app_id     = var.rbac_aad_client_app_id
-        server_app_id     = var.rbac_aad_server_app_id
-        server_app_secret = var.rbac_aad_server_app_secret
-        tenant_id         = var.rbac_aad_tenant_id
-      }
-    }
+  azure_active_directory_role_based_access_control {
+      managed           = var.rbac_enabled
+      client_app_id     = var.rbac_aad_client_app_id
+      server_app_id     = var.rbac_aad_server_app_id
+      server_app_secret = var.rbac_aad_server_app_secret
+      tenant_id         = var.rbac_aad_tenant_id
   }
 
   identity {
     type = "SystemAssigned"
   }
-
-  addon_profile {
-    http_application_routing {
-      enabled = var.http_application_routing_enabled
-    }
-    kube_dashboard {
-      enabled = false
-    }
-    oms_agent {
-      enabled                    = true
-      log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics.id
-    }
+  
+  oms_agent {
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics.id
   }
+
+  # addon_profile {
+  #   http_application_routing {
+  #     enabled = var.http_application_routing_enabled
+  #   }
+  #   kube_dashboard {
+  #     enabled = false
+  #   }
+  #   oms_agent {
+  #     enabled                    = true
+  #     log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics.id
+  #   }
+  # }
 
   tags = var.tags
 

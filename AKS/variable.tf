@@ -127,7 +127,7 @@ variable "name" {
 variable "kubernetes_version" {
   type        = string
   description = "(Required) Version of Kubernetes specified when creating the AKS managed cluster. If not specified, the latest recommended version will be used at provisioning time (but won't auto-upgrade). NOTE: Upgrading your cluster may take up to 10 minutes per node."
-  default     = "1.23.5"
+  default     = "1.25.6"
 }
 
 variable "dns_prefix" {
