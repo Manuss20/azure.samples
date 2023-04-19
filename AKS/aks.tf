@@ -53,20 +53,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   oms_agent {
     log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics.id
   }
-
-  # addon_profile {
-  #   http_application_routing {
-  #     enabled = var.http_application_routing_enabled
-  #   }
-  #   kube_dashboard {
-  #     enabled = false
-  #   }
-  #   oms_agent {
-  #     enabled                    = true
-  #     log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics.id
-  #   }
-  # }
-
+  
   tags = var.tags
 
 }
