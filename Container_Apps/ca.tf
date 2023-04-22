@@ -1,16 +1,16 @@
 resource "azurerm_log_analytics_workspace" "log" {
-  name                = var.name-log
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  sku                 = var.sku-log
-  retention_in_days   = var.retention-log
+  name                         = var.name-log
+  location                     = azurerm_resource_group.rg.location
+  resource_group_name          = azurerm_resource_group.rg.name
+  sku                          = var.sku-log
+  retention_in_days            = var.retention-log
 }
 
 resource "azurerm_container_app_environment" "cae" {
-  name                       = var.name-cae
-  location                   = azurerm_resource_group.rg.location
-  resource_group_name        = azurerm_resource_group.rg.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.log.id
+  name                         = var.name-cae
+  location                     = azurerm_resource_group.rg.location
+  resource_group_name          = azurerm_resource_group.rg.name
+  log_analytics_workspace_id   = azurerm_log_analytics_workspace.log.id
 }
 
 resource "azurerm_container_app" "ca" {
@@ -21,10 +21,19 @@ resource "azurerm_container_app" "ca" {
 
   template {
     container {
-      name   = "examplecontainerapp"
-      image  = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
-      cpu    = 0.25
-      memory = "0.5Gi"
+      name                     = "examplecontainerapp"
+      image                    = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
+      cpu                      = 0.25
+      memory                   = "0.5Gi"
+    }
+  }
+  ingress {
+    external_enabled           = var.ingress_external_enabled
+    target_port                = var.target_port
+    allow_insecure_connections = var.allow_insecure_connections
+    traffic_weight {
+      latest_revision          = var.latest_revision
+      percentage               = var.percentage
     }
   }
 }
