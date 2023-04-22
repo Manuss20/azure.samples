@@ -33,8 +33,8 @@ resource "azurerm_subnet" "subnet2" {
   address_prefixes                               = var.address_space_subnet_2
   service_endpoints                              = []
 
-  enforce_private_link_endpoint_network_policies = var.enforce_private_link_endpoint
-  enforce_private_link_service_network_policies  = var.enforce_private_link_service
+  private_endpoint_network_policies_enabled      = var.enforce_private_link_endpoint
+  private_link_service_network_policies_enabled  = var.enforce_private_link_service
 }
 
 resource "azurerm_subnet_network_security_group_association" "vnet" {
@@ -50,6 +50,6 @@ resource "azurerm_subnet_route_table_association" "vnet" {
 }
 
 resource "azurerm_app_service_virtual_network_swift_connection" "vnetintegrationconnection" {
-  app_service_id = azurerm_app_service.app_frontend.id
+  app_service_id = azurerm_linux_web_app.app_frontend.id
   subnet_id      = azurerm_subnet.subnet.id
 }

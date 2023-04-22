@@ -1,26 +1,21 @@
-resource "azurerm_app_service_plan" "plan" {
-  name                = var.app_service_plan_name
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = var.location
-  kind                = var.app_service_plan_kind
-  reserved            = var.app_service_plan_reserved
-  
-  sku {
-    tier = var.app_service_plan_tier
-    size = var.app_service_plan_size
-  }
-
-  tags                = var.tags
+resource "azurerm_service_plan" "plan" {
+  name                =  var.app_service_plan_name
+  resource_group_name =  azurerm_resource_group.rg.name
+  location            =  azurerm_resource_group.rg.location
+  os_type             =  var.app_service_plan_kind
+  sku_name            =  var.app_service_plan_size
+  tags                =  var.tags
 }
 
-resource "azurerm_app_service" "app_frontend" {
+resource "azurerm_linux_web_app" "app_frontend" {
   name                = var.app_service_name_fe
-  location            = var.location
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.plan.id
-
+  service_plan_id     = azurerm_service_plan.plan.id
   site_config {
-    dotnet_framework_version = "v5.0"
+    application_stack {
+      dotnet_version = "7.0"
+    }
   }
 
   app_settings = {
@@ -29,21 +24,18 @@ resource "azurerm_app_service" "app_frontend" {
   }
 
   tags                = var.tags
-  
 }
 
-resource "azurerm_app_service" "app_backend" {
+resource "azurerm_linux_web_app" "app_backend" {
   name                = var.app_service_name_be
-  location            = var.location
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.plan.id
-
+  service_plan_id     = azurerm_service_plan.plan.id
   site_config {
-    dotnet_framework_version = "v5.0"
+    application_stack {
+      dotnet_version = "7.0"
+    }
   }
 
   tags                = var.tags
-
 }
-
-

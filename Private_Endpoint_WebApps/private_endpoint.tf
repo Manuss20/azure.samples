@@ -11,7 +11,7 @@ resource "azurerm_private_endpoint" "pe" {
 
   private_service_connection {
     name = var.private_service_connection
-    private_connection_resource_id = azurerm_app_service.app_backend.id
+    private_connection_resource_id = azurerm_linux_web_app.app_backend.id
     subresource_names = var.subresource_names
     is_manual_connection = var.is_manual_connection
   }

@@ -73,11 +73,11 @@ resource "azurerm_application_gateway" "agw" {
 resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "nicagw" {
   network_interface_id    = azurerm_network_interface.nic.id
   ip_configuration_name   = var.name-ipconfig-nic
-  backend_address_pool_id = azurerm_application_gateway.agw.backend_address_pool[0].id
+  backend_address_pool_id = one(azurerm_application_gateway.agw.backend_address_pool).id
 }
 
 resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "nicagw2" {
   network_interface_id    = azurerm_network_interface.nic_2.id
   ip_configuration_name   = var.name-ipconfig-nic-2
-  backend_address_pool_id = azurerm_application_gateway.agw.backend_address_pool[0].id
+  backend_address_pool_id = one(azurerm_application_gateway.agw.backend_address_pool).id
 }
