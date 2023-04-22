@@ -26,3 +26,4 @@ variable "tags" {
   description = "(Required) Tags to be applied to the all services to be created"
   default = { Project = "IoTTelemetry" }
 }
+
