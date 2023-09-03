@@ -15,28 +15,28 @@ variable "tags" {
 }
 
 # Storage Account
-variable "name-st" {
+variable "name_st" {
   description = "(Required) Name of Storage Account"
   default="stacr"
 }
 
-variable "sku-st" {
+variable "sku_st" {
   description = "(Required) Sku Storage Account"
   default="Standard"
 }
 
-variable "kind-st" {
+variable "kind_st" {
   description = "(Required) Kind Storage Account"
   default="StorageV2"
 }
 
-variable "replication-type-st" {
+variable "replication_type_st" {
   description = "(Required) Replication type on Storage Account"
   default="LRS"
 }
 
-variable "http-traffic-only-st" {
-  description = "(Required) http-traffic-only-sta Storage Account"
+variable "http_traffic_only_st" {
+  description = "(Required) http_traffic_only_sta Storage Account"
   default=true
 }
 
@@ -45,33 +45,33 @@ variable "stacrread" {
   default="stcacr"
 }
 
-variable "access-type-st-container" {
+variable "access_type_st_container" {
   description = "(Required) Access Type of Storage Account Container"
   default="private"
 }
 
-variable "name-st-func" {
+variable "name_st_func" {
   description = "(Required) Name of Storage Account"
   default="stfuncacr"
 }
 
-variable "sku-st-func" {
+variable "sku_st_func" {
   description = "(Required) Sku Storage Account"
   default="Standard"
 }
 
-variable "kind-st-func" {
+variable "kind_st_func" {
   description = "(Required) Kind Storage Account"
   default="StorageV2"
 }
 
-variable "replication-type-st-func" {
+variable "replication_type_st_func" {
   description = "(Required) Replication type on Storage Account"
   default="LRS"
 }
 
 # Event Grid
-variable "name-evgt" {
+variable "name_evgt" {
   description = "(Required) Name of Event Grid topic"
   default="evgtacr"
 }
@@ -82,14 +82,13 @@ variable "asp_name" {
   default = "aspacr"
 }
 
-variable "asp_kind" {
-  description = "(Required) App Service Plan kind"
-  default = "functionapp"
-}
-
 variable "asp_sku" {
   description = "(Required) App Service Plan Sku"
-  default = { tier = "Dynamic", size = "Y1" }
+  default = "Y1"
+}
+variable "asp_os_type" {
+  description = "(Required) App Service Plan Os Type"
+  default = "Linux"
 }
 
 # Azure Application Insights
@@ -113,4 +112,9 @@ variable "appi_retention_days" {
 variable "fun_name" {
   description = "(Required) Azure Function name"
   default = "funacr"
+}
+
+variable "func_https_only" {
+  description = "(Required) Azure Function Https Only"
+  default = true
 }
